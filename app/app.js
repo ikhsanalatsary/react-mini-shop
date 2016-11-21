@@ -3,6 +3,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './config/Routes.js';
 
+if (!localStorage.getItem('reactminishop')) {
+  localStorage.setItem('reactminishop', JSON.stringify(require('./data/products.json')));
+}
+
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(

@@ -16,7 +16,7 @@ module.exports = (function makeWebpackConfig() {
   config.entry = isTest ? {} : {
     app: [
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:8080',
+      'webpack-dev-server/client?http://localhost:3000',
       'webpack/hot/only-dev-server',
       './app/app.js',
     ],
@@ -46,6 +46,7 @@ module.exports = (function makeWebpackConfig() {
   config.module = {
     loaders: [
       { test: /.js?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.json$/, loader: "json-loader" },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.png$/, loader: "url-loader?limit=100000" },
       { test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/, loader: 'file' },
@@ -78,6 +79,7 @@ module.exports = (function makeWebpackConfig() {
     config.devServer = {
       historyApiFallback: true,
       inline: false,
+      port: 3000,
       hot: true,
     };
   }

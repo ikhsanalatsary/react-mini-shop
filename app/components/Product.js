@@ -5,10 +5,19 @@ import { normalString } from '../helpers/slug.js';
 class Product extends React.Component {
   constructor(props) {
     super(props);
-    this.products = JSON.parse(localStorage.getItem('reactminishop'));
+    this.state = {
+      products: [],
+    }
   }
+
+  componentDidMount() {
+    this.setState({
+      products: JSON.parse(localStorage.getItem('reactminishop')),
+    })
+  }
+
   render() {
-    var { products } = this;
+    var { products } = this.state;
     var productName = normalString(this.props.params.name);
     return (
       <div className="container-mini">
