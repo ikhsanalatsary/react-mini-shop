@@ -7,12 +7,26 @@ class ListProducts extends React.Component {
     this.state = {
       products: [],
     };
+
+    this.onLikeClick = this.onLikeClick.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      products: JSON.parse(localStorage.getItem('reactminishop')),
-    });
+    setTimeout(() => {
+      this.setState({
+        products: JSON.parse(localStorage.getItem('reactminishop')),
+      });
+    }, 1000);
+  }
+
+  onLikeClick(val) {
+    var products = JSON.parse(localStorage.getItem('reactminishop'));
+    return products
+      .filter(prod => prod.id === val)
+      .map(prod => {
+        prod.liked ? prod.liked = false : prod.liked = true;
+        localStorage.setItem('reactminishop', JSON.stringify(products));
+      }) && this.setState({ products });
   }
 
   render() {
@@ -21,7 +35,7 @@ class ListProducts extends React.Component {
       <div className='container-mini'>
         <div>
         {lists.map(product => {
-          return <Products key={product.id} product={product} />
+          return <Products key={product.id} product={product} onLike={this.onLikeClick} />
         })}
       </div>
     </div>

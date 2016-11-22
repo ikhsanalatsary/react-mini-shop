@@ -71,7 +71,10 @@ module.exports = (function makeWebpackConfig() {
 		config.plugins.push(
 			new webpack.NoErrorsPlugin(),
 			new webpack.optimize.DedupePlugin(),
-			new webpack.optimize.UglifyJsPlugin()
+			new webpack.optimize.UglifyJsPlugin(),
+      new CopyWebpackPlugin([
+				{ from: __dirname + '/app/assets', },
+			])
     );
   }
 
