@@ -13,14 +13,19 @@ const isProd = ENV === 'build';
 module.exports = (function makeWebpackConfig() {
   let config = {};
 
-  config.entry = isTest ? {} : {
-    app: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000',
-      'webpack/hot/only-dev-server',
-      './app/app.js',
-    ],
-  };
+  if (!isProd) {
+    config.entry = isTest ? {} : {
+      app: [
+        'react-hot-loader/patch',
+        'webpack-dev-server/client?http://localhost:3000',
+        'webpack/hot/only-dev-server',
+        './app/app.js',
+      ],
+    };
+  } else {
+    config.entry = { app: './app/app.js' };
+  }
+
 
   config.output = isTest ? {} : {
     path: isProd ? path.join(__dirname, '/dist') : path.join(__dirname, '/public'),
@@ -62,19 +67,24 @@ module.exports = (function makeWebpackConfig() {
 				inject: 'body',
 			}),
 			new ExtractTextPlugin('[name].[hash].css', { disable: !isProd }),
-      new CopyWebpackPlugin([ { from: 'app/assets', to: 'assets' } ]),
-      new webpack.HotModuleReplacementPlugin()
+      new CopyWebpackPlugin([ { from: 'app/assets', to: 'assets' } ])
 		);
 	}
 
+  if (!isProd && !isTest) {
+    config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  }
+
   if (isProd) {
 		config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production')
+        }
+      }),
 			new webpack.NoErrorsPlugin(),
 			new webpack.optimize.DedupePlugin(),
-			new webpack.optimize.UglifyJsPlugin(),
-      new CopyWebpackPlugin([
-				{ from: __dirname + '/app/assets', },
-			])
+			new webpack.optimize.UglifyJsPlugin()
     );
   }
 

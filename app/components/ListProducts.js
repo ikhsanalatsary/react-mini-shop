@@ -1,4 +1,5 @@
 import React from 'react';
+import Loading from 'react-loading-animation';
 import Products from './Products.js';
 
 class ListProducts extends React.Component {
@@ -6,6 +7,7 @@ class ListProducts extends React.Component {
     super(props);
     this.state = {
       products: [],
+      isLoading: true,
     };
 
     this.onLikeClick = this.onLikeClick.bind(this);
@@ -15,8 +17,9 @@ class ListProducts extends React.Component {
     setTimeout(() => {
       this.setState({
         products: JSON.parse(localStorage.getItem('reactminishop')),
+        isLoading: false,
       });
-    }, 1000);
+    }, 2000);
   }
 
   onLikeClick(val) {
@@ -30,11 +33,12 @@ class ListProducts extends React.Component {
   }
 
   render() {
-    var lists = this.state.products;
+    var { products, isLoading} = this.state;
+    if (isLoading) return <Loading />;
     return(
       <div className='container-mini'>
         <div>
-        {lists.map(product => {
+        {products.map(product => {
           return <Products key={product.id} product={product} onLike={this.onLikeClick} />
         })}
       </div>

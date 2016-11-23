@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductDetail from './ProductDetail.js';
+import Loading from 'react-loading-animation';
 import { normalString } from '../helpers/slug.js';
 
 class Product extends React.Component {
@@ -7,15 +8,19 @@ class Product extends React.Component {
     super(props);
     this.state = {
       products: [],
+      isLoading: true,
     };
 
     this.onLikeClick = this.onLikeClick.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      products: JSON.parse(localStorage.getItem('reactminishop')),
-    })
+    setTimeout(() => {
+      this.setState({
+        products: JSON.parse(localStorage.getItem('reactminishop')),
+        isLoading: false,
+      });
+    }, 2000);
   }
 
   onLikeClick(val) {
@@ -29,8 +34,9 @@ class Product extends React.Component {
   }
 
   render() {
-    var { products } = this.state;
+    var { products, isLoading } = this.state;
     var productName = normalString(this.props.params.name);
+    if (isLoading) return <Loading />;
     return (
       <div className="container-mini">
         {products.filter((prod) => { return prod.name === productName }).map((product) => {

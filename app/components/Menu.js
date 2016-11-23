@@ -1,38 +1,38 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Button, FormGroup, FormControl } from 'react-bootstrap';
 import { Link, IndexLink } from 'react-router';
+
+const styles = {
+  textDecoration: 'none',
+  textTransform: 'uppercase',
+  fontWeight: 800,
+  fontSize: 20 + 'px',
+  color: '#08489D'
+}
 
 const Menu = () => {
   return (
-    <Navbar>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <a href="#">React Mini Shop</a>
-        </Navbar.Brand>
-      </Navbar.Header>
-      <Nav>
-        <NavItem eventKey={1} href='#/about'>
-          About
-        </NavItem>
-        <NavItem eventKey={2} href="#/examples">
-          Examples
-        </NavItem>
-        <NavDropdown eventKey={3} title="Category" id="basic-nav-dropdown">
-          <MenuItem eventKey={3.1}>Action</MenuItem>
-          <MenuItem eventKey={3.2}>Another action</MenuItem>
-          <MenuItem eventKey={3.3}>Something else here</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey={3.3}>Separated link</MenuItem>
-        </NavDropdown>
-      </Nav>
-      <Navbar.Form>
-        <FormGroup>
-          <FormControl type="text" placeholder="Search" />
-        </FormGroup>
-        {' '}
-        <Button type="submit">Submit</Button>
-      </Navbar.Form>
-    </Navbar>
+    <nav>
+      <div className='container-mini'>
+        <div className='row'>
+          <div className='col-xs-8'>
+            <a style={styles} href='#'>
+              React Mini Shop
+            </a>
+          </div>
+          <div className='col-xs-4 text-right'>
+            <button><i className='ion-ios-search-strong'></i></button>
+            <button>
+              <a href='#/cart'>
+                <i className='ion-bag'>
+                  <span className='badge animated'>1</span>
+                </i>
+              </a>
+            </button>
+            <button><i className='ion-pricetags'></i></button>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }
 export default Menu;

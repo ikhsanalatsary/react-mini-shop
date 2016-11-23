@@ -13,8 +13,8 @@
   "license": "MIT",
   "dependencies": {
     "react": "15.4.0",
-    "react-bootstrap": "0.30.5",
     "react-dom": "15.4.0",
+    "react-loading-animation": "1.1.0",
     "react-router": "3.0.0"
   },
   "devDependencies": {
