@@ -34,12 +34,12 @@ module.exports = (function makeWebpackConfig() {
   };
 
   if (isTest) {
-		config.devtool = 'inline-source-map';
+    config.devtool = 'inline-source-map';
 	} else if (isProd) {
-		config.devtool = 'source-map';
+    config.devtool = 'source-map';
 	}
   else {
-		config.devtool = 'eval-source-map';
+    config.devtool = 'eval-source-map';
 	}
 
   config.resolve = {
@@ -61,12 +61,12 @@ module.exports = (function makeWebpackConfig() {
   config.plugins = [];
 
 	if (!isTest) {
-		config.plugins.push(
-			new HtmlWebpackPlugin({
-				template: './app/index.html',
-				inject: 'body',
-			}),
-			new ExtractTextPlugin('[name].[hash].css', { disable: !isProd }),
+    config.plugins.push(
+      new HtmlWebpackPlugin({
+        template: './app/index.html',
+        inject: 'body',
+      }),
+      new ExtractTextPlugin('[name].[hash].css', { disable: !isProd }),
       new CopyWebpackPlugin([ { from: 'app/assets', to: 'assets' } ])
 		);
 	}
@@ -76,15 +76,15 @@ module.exports = (function makeWebpackConfig() {
   }
 
   if (isProd) {
-		config.plugins.push(
+    config.plugins.push(
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production')
         }
       }),
-			new webpack.NoErrorsPlugin(),
-			new webpack.optimize.DedupePlugin(),
-			new webpack.optimize.UglifyJsPlugin()
+      new webpack.NoErrorsPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin()
     );
   }
 
@@ -97,7 +97,7 @@ module.exports = (function makeWebpackConfig() {
     };
   }
 
-	if (isTest) config.watch = true;
+  if (isTest) config.watch = true;
 
   return config;
 
