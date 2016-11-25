@@ -11,8 +11,14 @@ class Products extends React.Component {
     this.mount = this.mount.bind(this);
     this.unmount = this.unmount.bind(this);
     this.handleGetStock = this.handleGetStock.bind(this);
+    this.cart = {
+      all: [],
+      totalItem: 0,
+    };
+
     this.state = {
       showStocks: false,
+      cart: {},
     }
   }
 
@@ -20,8 +26,8 @@ class Products extends React.Component {
     this.props.onLike(val);
   }
 
-  mount() {
-    console.log('hi');
+  mount(prod) {
+    this.prod = prod;
     this.setState({
       showStocks: true,
     });
@@ -36,15 +42,25 @@ class Products extends React.Component {
 
   handleGetStock(val) {
     console.log(val);
+    console.log(this.prod);
+    // var cart = this.cart;
+    this.cart.all.push({
+      name:this.prod.name,
+      color: val.color,
+      price: this.prod.price,
+      amount: 1
+    });
+    this.cart.totalItem = this.cart.all.reduce((acc, cart) => { return acc + cart.amount }, 0);
     this.setState({
       showStocks: false,
+      cart: this.cart
     });
     // Update data stock & push stock to cart
   }
 
   render() {
     var { product } = this.props;
-    var { showStocks } = this.state;
+    var { showStocks, cart } = this.state;
     return (
       <div className='product'>
         <div className='img'><a href='#'><img src={'./assets/img/' + product.image} /></a></div>
@@ -53,7 +69,7 @@ class Products extends React.Component {
           <p className='price'><b>{ currency(product.price)  }</b></p>
           <p className='stock text-right'><b>Stocks:</b><span>&nbsp;{ stockTotal(product.stocks) + ' pcs'}</span></p>
         </div>
-        {showStocks ? <Stocks eachStock={product.stocks} getStock={this.handleGetStock}/> : null}
+        {showStocks && <Stocks eachStock={product.stocks} getStock={this.handleGetStock}/>}
       <div className='actions'>
         <div className='row'>
           <div className='col-xs-7'>
@@ -63,7 +79,7 @@ class Products extends React.Component {
             </div>
           </div>
           <div className='col-xs-5 text-right'>
-            {showStocks ? <button onClick={this.unmount} className="psr btn buy">Choose The Color</button> : <button onClick={this.mount} className='psr btn buy'>Add To Cart</button>}
+            {showStocks ? <button onClick={this.unmount} className="psr btn buy">Choose The Color</button> : <button onClick={() => this.mount(product)} className='psr btn buy'>Add To Cart</button>}
           </div>
         </div>
       </div>

@@ -5,15 +5,14 @@ import Main from '../components/Main.js';
 import ListProducts from '../components/ListProducts.js';
 import About from '../components/About.js';
 import Cart from '../components/Cart.js';
-import Product from '../components/Product.js';
 
 const Routes = () => {
   return (
     <Router history={hashHistory}>
       <Route path="/" component={Main}>
-        <Route path="about" component={About} />
         <Route path="cart" component={Cart} />
-        <Route path="product/:name" component={Product} />
+        <Route path="category/:categoryname" component={ListProducts} />
+        <Route path="product/:name" component={ListProducts} />
         <IndexRoute component={ListProducts} />
       </Route>
     </Router>

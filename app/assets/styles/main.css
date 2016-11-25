@@ -75,6 +75,7 @@ button {
 
 a {
   cursor: pointer;
+  text-decoration: none;
 }
 
 textarea {
@@ -101,7 +102,7 @@ img {
 }
 
 a {
-  text-decoration: underline;
+  text-decoration: none;
   color: #7794bb;
 }
 
@@ -110,6 +111,26 @@ a {
   max-width: 530px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.container {
+  max-width: 640px;
+}
+
+span.caret:before {
+  content: "\E152";
+  font-family: "Material Icons";
+  font-size: 1.8em;
+  margin-top: 0.3em;
+  right: 0.1em;
+  position: absolute;
+  visibility: visible;
+}
+
+.caret {
+  border: none;
+  display: inline;
+  margin-left: 1px;
 }
 
 header {
@@ -242,7 +263,7 @@ form.search-bar button {
 }
 
 .main-wrapper {
-  padding-top: 60px;
+  padding-top: 80px;
 }
 
 .not-found {
@@ -521,6 +542,11 @@ p.result {
   width: 100%;
 }
 
+.navbar-form .form-group input {
+  border-radius: 0;
+}
+
+.navbar-form .form-group input:focus,
 .product .comment-editor textarea:focus {
   border-color: #094ca5;
 }

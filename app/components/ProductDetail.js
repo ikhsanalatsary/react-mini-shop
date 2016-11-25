@@ -12,7 +12,7 @@ class ProductDetail extends React.Component {
     this.handleGetStock = this.handleGetStock.bind(this);
     this.state = {
       showStocks: false,
-    }
+    };
   }
 
   handleLikeClick(val) {
@@ -53,7 +53,7 @@ class ProductDetail extends React.Component {
           <p className='stock text-right'><b>Stocks:</b><span>&nbsp;{ stockTotal(product.stocks) + ' pcs'}</span></p>
         </div>
         <div className='detil' dangerouslySetInnerHTML={ {__html: product.detail} }></div>
-        {showStocks ? <Stocks eachStock={product.stocks} getStock={this.handleGetStock}/> : null}
+        {showStocks && <Stocks eachStock={product.stocks} getStock={this.handleGetStock}/>}
         <div className='actions'>
           <div className='row'>
             <div className='col-xs-7'>
