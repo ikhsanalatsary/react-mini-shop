@@ -13,6 +13,8 @@ class ListProducts extends React.Component {
     };
 
     this.onLikeClick = this.onLikeClick.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
+    this.postComment = this.postComment.bind(this);
   }
 
   componentDidMount() {
@@ -34,11 +36,31 @@ class ListProducts extends React.Component {
       }) && this.setState({ products });
   }
 
+  deleteComment(val, id) {
+    var products = JSON.parse(localStorage.getItem('reactminishop'));
+    return products
+      .filter(prod => prod.id === id)
+      .map(prod => {
+        prod.comments = prod.comments.filter(comment => comment.content != val);
+        localStorage.setItem('reactminishop', JSON.stringify(products));
+      }) && this.setState({ products });
+  }
+
+  postComment(val, id) {
+    var products = JSON.parse(localStorage.getItem('reactminishop'));
+    return products
+      .filter(prod => prod.id === id)
+      .map(prod => {
+        prod.comments = [...prod.comments, {content: val}];
+        localStorage.setItem('reactminishop', JSON.stringify(products));
+      }) && this.setState({ products });
+  }
+
   render() {
     var { products, isLoading} = this.state;
     var query = this.props.location.query.q;
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return <div className='loading'><Loading /></div>;
 
     if (query && query.length > 0) {
       let q = query.trim().toLowerCase();
@@ -52,7 +74,7 @@ class ListProducts extends React.Component {
       return (
         <div className="container-mini">
           {products.filter(prod => prod.name.match(new RegExp('('+productName+')','ig')))
-            .map(product => <ProductDetail key={product.id} product={product} onLike={this.onLikeClick} />)}
+            .map(product => <ProductDetail key={product.id} product={product} onLike={this.onLikeClick} deleteComment={this.deleteComment} postComment={this.postComment}/>)}
         </div>
       );
     } else if (this.props.params && this.props.params.categoryname) {

@@ -7,7 +7,7 @@ import Cart from '../components/Cart.js';
 
 const Routes = () => {
   return (
-    <Router history={hashHistory}>
+    <Router onUpdate={() => window.scrollTo(0, 0)} history={hashHistory}>
       <Route path="/" component={Main}>
         <Route path="cart" component={Cart} />
         <Route path="category/:categoryname" component={ListProducts} />

@@ -1,7 +1,8 @@
 import React from 'react';
 import currency from '../helpers/currency.js';
 import stockTotal from '../helpers/stockTotal.js';
-import Stocks from './Stocks';
+import Stocks from './Stocks.js';
+import Comments from './Comments.js';
 const PropTypes = React.PropTypes;
 
 class ProductDetail extends React.Component {
@@ -10,13 +11,40 @@ class ProductDetail extends React.Component {
     this.mount = this.mount.bind(this);
     this.unmount = this.unmount.bind(this);
     this.handleGetStock = this.handleGetStock.bind(this);
+    this.removeComment = this.removeComment.bind(this);
+    this.sendComment = this.sendComment.bind(this);
     this.state = {
       showStocks: false,
+      comments: this.props.product.comments,
     };
   }
 
   handleLikeClick(val) {
     this.props.onLike(val);
+  }
+
+  removeComment(val) {
+    var id = this.props.product.id;
+    var comments = this.props.product.comments;
+    comments = comments.filter(comment => comment.content != val);
+    this.props.deleteComment(val, id);
+    this.setState({
+      comments
+    });
+  }
+
+  sendComment(e) {
+    e.preventDefault();
+    var { comments, id } = this.props.product;
+    let commentRefs = this.refs.comment;
+    let comment = commentRefs.value;
+    if (comment.length > 0) {
+      this.props.postComment(comment, id);
+      this.setState({
+        comments: [...comments, {content: comment}]
+      })
+      commentRefs.value = '';
+    }
   }
 
   mount() {
@@ -43,7 +71,7 @@ class ProductDetail extends React.Component {
 
   render() {
     var { product } = this.props;
-    var { showStocks } = this.state;
+    var { comments, showStocks } = this.state;
     return (
       <div className='product detil-page'>
         <div className='img'><img src={'./assets/img/' + product.image} /></div>
@@ -68,33 +96,15 @@ class ProductDetail extends React.Component {
           </div>
         </div>
         <div className='comment-wrapper'>
-          <h4>2 Comments</h4>
-          <div className='comment'>
-            <div className='row'>
-              <div className='col-xs-2'>
-                <div className='avatar'></div>
-              </div>
-              <div className='col-xs-10 pl-small'>
-                <h5 className='name'>You</h5>
-                <p className='content'><button className='delete'><i className='ion-android-close'></i></button>Waaah.. keren bingit Hpnya!</p>
-              </div>
-            </div>
-          </div>
-          <div className='comment'>
-            <div className='row'>
-              <div className='col-xs-2'>
-                <div className='avatar'></div>
-              </div>
-              <div className='col-xs-10 pl-small'>
-                <h5 className='name'>You</h5>
-                <p className='content'><button className='delete'><i className='ion-android-close'></i></button>Barangnya Sampai dengan Selamat Gan, Makasih. Packaging-nya juga bagus! Recommended banget deh pokoknya</p>
-              </div>
-            </div>
-          </div>
+          <h4>{product.comments.length + ' Comments'}</h4>
+          {comments.map(comment => <Comments key={comment.content} comment={comment.content} delComment={() => this.removeComment(comment.content)}/>)}
         </div>
         <div className='comment-editor'>
           <h4 className='mb-15'>Leave a Comment</h4>
-          <form><textarea placeholder='Write a comment here...'></textarea><button type='submit' className='btn'>Submit</button></form>
+          <form onSubmit={this.sendComment}>
+            <textarea ref='comment' placeholder='Write a comment here...'></textarea>
+            <button type='submit' className='btn'>Submit</button>
+          </form>
         </div>
       </div>
     );

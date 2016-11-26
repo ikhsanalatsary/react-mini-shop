@@ -507,7 +507,7 @@ p.result {
 }
 
 .product .comment .avatar {
-  background: #c1c1c1;
+  background: url("/assets/img/default-img.png") no-repeat;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -653,4 +653,9 @@ footer a {
 
 footer a:hover {
   color: #ff0;
+}
+
+.loading {
+  padding-top: 10em;
+  padding-bottom: 23em;
 }
