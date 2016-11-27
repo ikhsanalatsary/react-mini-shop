@@ -1,4 +1,5 @@
 import React from 'react';
+import ProgressiveImage from 'react-progressive-image';
 import currency from '../helpers/currency.js';
 import stockTotal from '../helpers/stockTotal.js';
 import Stocks from './Stocks.js';
@@ -74,7 +75,11 @@ class ProductDetail extends React.Component {
     var { comments, showStocks } = this.state;
     return (
       <div className='product detil-page'>
-        <div className='img'><img src={'./assets/img/' + product.image} /></div>
+        <div className='img'>
+          <ProgressiveImage src='./assets/img/loading-image.svg' placeholder='loading-image.jpg'>
+            {(src) => <img src={'./assets/img/' + product.image} />}
+          </ProgressiveImage>
+        </div>
         <div className='content'>
           <a className='name'>{product.name}</a>
           <p className='price'><b>{ currency(product.price) }</b></p>
@@ -114,6 +119,8 @@ class ProductDetail extends React.Component {
 ProductDetail.propTypes = {
   product: PropTypes.object.isRequired,
   onLike: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  postComment: PropTypes.func.isRequired
 }
 
 export default ProductDetail;

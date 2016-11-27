@@ -1,5 +1,8 @@
 import React from 'react';
+import ProgressBar from 'react-progress-bar-plus';
 import Menu from './Menu.js';
+
+import 'react-progress-bar-plus/lib/progress-bar.css';
 
 class Main extends React.Component {
   handleSearch(e) {
@@ -13,6 +16,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
+        <ProgressBar percent={100} />
         <Menu onSearch={this.handleSearch.bind(this)}></Menu>
         <div className='main-wrapper'>
           {this.props.children}

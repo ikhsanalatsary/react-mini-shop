@@ -108,13 +108,13 @@ a {
 
 .container-mini {
   position: relative;
-  max-width: 530px;
+  max-width: 33.125em;
   margin-left: auto;
   margin-right: auto;
 }
 
 .container {
-  max-width: 640px;
+  max-width: 40.000em;
 }
 
 span.caret:before {
@@ -263,7 +263,7 @@ form.search-bar button {
 }
 
 .main-wrapper {
-  padding-top: 80px;
+  padding-top: 5.000em;
 }
 
 .not-found {
@@ -595,6 +595,13 @@ p.result {
   color: #094ca5;
 }
 
+@media only screen and (min-width: 1024px) {
+  /*hack specificity*/
+  .search.search {
+    width: 180%;
+  }
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   header {
     padding: 100px 0;
@@ -603,6 +610,11 @@ p.result {
 
   article {
     padding: 45px 0 175px;
+  }
+
+  /*hack specificity*/
+  .search.search {
+    width: 180%;
   }
 }
 
@@ -632,6 +644,16 @@ p.result {
 
   section#thanks {
     padding: 50px 0;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .main-wrapper {
+    padding-top: 16em;
+  }
+
+  .search {
+    width: 95%;
   }
 }
 

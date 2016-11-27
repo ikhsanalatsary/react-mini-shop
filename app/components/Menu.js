@@ -22,7 +22,7 @@ const Menu = (props) => {
       </Navbar.Header>
       <Navbar.Form pullLeft>
         <FormGroup>
-          <FormControl type="text" placeholder="Search" onKeyPress={props.onSearch}/>
+          <FormControl className='search' type="text" placeholder="Search" onKeyPress={props.onSearch}/>
         </FormGroup>
       </Navbar.Form>
       <Nav pullRight>

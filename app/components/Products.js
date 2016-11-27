@@ -1,4 +1,5 @@
 import React from 'react';
+import ProgressiveImage from 'react-progressive-image';
 import currency from '../helpers/currency.js';
 import stockTotal from '../helpers/stockTotal.js';
 import { slug } from '../helpers/slug.js';
@@ -63,7 +64,13 @@ class Products extends React.Component {
     var { showStocks, cart } = this.state;
     return (
       <div className='product'>
-        <div className='img'><a href='#'><img src={'./assets/img/' + product.image} /></a></div>
+        <div className='img'>
+          <a href={'#/product/' + slug(product.name)}>
+            <ProgressiveImage src='./assets/img/loading-image.svg' placeholder='loading-image.jpg'>
+              {(src) => <img src={'./assets/img/' + product.image} />}
+            </ProgressiveImage>
+          </a>
+        </div>
         <div className='content'>
           <a className='name' href={'#/product/' + slug(product.name)}>{product.name}</a>
           <p className='price'><b>{ currency(product.price)  }</b></p>
