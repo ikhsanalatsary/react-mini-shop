@@ -17,15 +17,15 @@ npm run build
 Hopefully it can be useful for your next projects.
 
 ## References
-https://github.com/getify/You-Dont-Know-JS
-https://github.com/nzakas/understandinges6
-https://facebook.github.io/react/docs/thinking-in-react.html
-https://egghead.io/courses/react-fundamentals
-https://online.reacttraining.com/courses/enrolled/reactjsfundamentals
-https://www.udemy.com/the-complete-react-web-app-developer-course
-https://egghead.io/courses/getting-started-with-react-router
-http://stackoverflow.com/questions/tagged/reactjs
-https://www.google.com - always :)
+- https://github.com/getify/You-Dont-Know-JS
+- https://github.com/nzakas/understandinges6
+- https://facebook.github.io/react/docs/thinking-in-react.html
+- https://egghead.io/courses/react-fundamentals
+- https://online.reacttraining.com/courses/enrolled/reactjsfundamentals
+- https://www.udemy.com/the-complete-react-web-app-developer-course
+- https://egghead.io/courses/getting-started-with-react-router
+- http://stackoverflow.com/questions/tagged/reactjs
+- https://www.google.com - always :)
 
 ## Personal Info
 Just Contact Me At:
