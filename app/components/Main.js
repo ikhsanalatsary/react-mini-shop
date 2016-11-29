@@ -3,6 +3,7 @@ import ProgressBar from 'react-progress-bar-plus';
 import Menu from './Menu.js';
 
 import 'react-progress-bar-plus/lib/progress-bar.css';
+import '../assets/styles/main.css';
 
 class Main extends React.Component {
   handleSearch(e) {
@@ -13,6 +14,22 @@ class Main extends React.Component {
     }
   }
 
+  scrolltoTop(scrollDuration) {
+    const scrollHeight = window.scrollY;
+    const scrollStep = Math.PI / ( scrollDuration / 15 );
+    const cosParameter = scrollHeight / 2;
+    var scrollCount = 0;
+    var scrollMargin;
+    var scrollInterval = setInterval(() => {
+      if ( window.scrollY != 0 ) {
+        scrollCount = scrollCount + 1;
+        scrollMargin = cosParameter - cosParameter * Math.cos( scrollCount * scrollStep );
+        window.scrollTo( 0, ( scrollHeight - scrollMargin ) );
+      }
+      else clearInterval(scrollInterval);
+    }, 15 );
+  }
+
   render() {
     return (
       <div>
@@ -21,7 +38,7 @@ class Main extends React.Component {
         <div className='main-wrapper'>
           {this.props.children}
         </div>
-        <a className="back-to-top"><i className="ion-chevron-up"></i></a>
+        <a onClick={this.scrolltoTop.bind(this, 1000)} className="back-to-top"><i className="ion-chevron-up"></i></a>
         <footer>
           <div className="container-mini">
             <p className="copyright">

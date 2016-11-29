@@ -9,8 +9,8 @@ const PropTypes = React.PropTypes;
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
-    this.mount = this.mount.bind(this);
-    this.unmount = this.unmount.bind(this);
+    this.showVariant = this.showVariant.bind(this);
+    this.hideVariant = this.hideVariant.bind(this);
     this.handleGetStock = this.handleGetStock.bind(this);
     this.removeComment = this.removeComment.bind(this);
     this.sendComment = this.sendComment.bind(this);
@@ -48,26 +48,25 @@ class ProductDetail extends React.Component {
     }
   }
 
-  mount() {
-    console.log('hi');
+  showVariant(prod) {
+    this.prod = prod;
     this.setState({
       showStocks: true,
     });
   }
 
-  unmount() {
-    console.log('hehe');
+  hideVariant() {
     this.setState({
       showStocks: false,
     });
   }
 
   handleGetStock(val) {
-    console.log(val);
+    // Update data stock & push stock to cart
+    this.props.addtoCart(val, this.prod);
     this.setState({
       showStocks: false,
     });
-    // Update data stock & push stock to cart
   }
 
   render() {
@@ -96,13 +95,13 @@ class ProductDetail extends React.Component {
               </div>
             </div>
             <div className='col-xs-5 text-right'>
-              {showStocks ? <button onClick={this.unmount} className="psr btn buy">Choose The Color</button> : <button onClick={this.mount} className='psr btn buy'>Add To Cart</button>}
+              {showStocks ? <button onClick={this.hideVariant} className="psr btn buy">Choose The Color</button> : <button onClick={() => this.showVariant(product)} className='psr btn buy'>Add To Cart</button>}
             </div>
           </div>
         </div>
         <div className='comment-wrapper'>
           <h4>{product.comments.length + ' Comments'}</h4>
-          {comments.map(comment => <Comments key={comment.content} comment={comment.content} delComment={() => this.removeComment(comment.content)}/>)}
+          {comments.map((comment, index) => <Comments key={index} comment={comment.content} delComment={() => this.removeComment(comment.content)}/>)}
         </div>
         <div className='comment-editor'>
           <h4 className='mb-15'>Leave a Comment</h4>
@@ -120,7 +119,8 @@ ProductDetail.propTypes = {
   product: PropTypes.object.isRequired,
   onLike: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
-  postComment: PropTypes.func.isRequired
+  postComment: PropTypes.func.isRequired,
+  addtoCart: PropTypes.func.isRequired,
 }
 
 export default ProductDetail;

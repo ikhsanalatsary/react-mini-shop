@@ -1,5 +1,6 @@
 import React from 'react';
 import Loading from 'react-loading-animation';
+import _ from 'lodash';
 import { normalString } from '../helpers/slug.js';
 import Products from './Products.js';
 import ProductDetail from './ProductDetail.js';
@@ -9,12 +10,13 @@ class ListProducts extends React.Component {
     super(props);
     this.state = {
       products: [],
-      isLoading: true,
+      isLoading: true
     };
 
     this.onLikeClick = this.onLikeClick.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
     this.postComment = this.postComment.bind(this);
+    this.addtoCart = this.addtoCart.bind(this);
   }
 
   componentDidMount() {
@@ -23,7 +25,7 @@ class ListProducts extends React.Component {
         products: JSON.parse(localStorage.getItem('reactminishop')),
         isLoading: false,
       });
-    }, 2000);
+    }, 1000);
   }
 
   onLikeClick(val) {
@@ -32,8 +34,8 @@ class ListProducts extends React.Component {
       .filter(prod => prod.id === val)
       .map(prod => {
         prod.liked ? prod.liked = false : prod.liked = true;
-        localStorage.setItem('reactminishop', JSON.stringify(products));
-      }) && this.setState({ products });
+        this.updateProduct(products);
+      });
   }
 
   deleteComment(val, id) {
@@ -42,8 +44,8 @@ class ListProducts extends React.Component {
       .filter(prod => prod.id === id)
       .map(prod => {
         prod.comments = prod.comments.filter(comment => comment.content != val);
-        localStorage.setItem('reactminishop', JSON.stringify(products));
-      }) && this.setState({ products });
+        this.updateProduct(products);
+      });
   }
 
   postComment(val, id) {
@@ -52,8 +54,50 @@ class ListProducts extends React.Component {
       .filter(prod => prod.id === id)
       .map(prod => {
         prod.comments = [...prod.comments, {content: val}];
-        localStorage.setItem('reactminishop', JSON.stringify(products));
-      }) && this.setState({ products });
+        this.updateProduct(products);
+      });
+  }
+
+  addtoCart(stock, prod) {
+    var cart = JSON.parse(localStorage.getItem('reactminicart'));
+    let product = {
+      name: prod.name,
+      color: stock.color,
+      price: prod.price,
+      amount: 1
+    };
+
+    let allCart = cart.all;
+    let duplicate = _.find(allCart, (item) => item.name === product.name && item.color === product.color);
+    if (typeof duplicate !== 'undefined') {
+      let indexOfDuplicateProduct = allCart.indexOf(duplicate);
+      allCart[indexOfDuplicateProduct].amount += 1;
+    } else {
+      cart.all.push(product);
+    }
+
+    cart.totalItem += product.amount;
+    this.updateCart(cart);
+    this.decreaseStock({ id: prod.id, color: stock.color});
+  }
+
+  updateCart(cart) {
+    localStorage.setItem('reactminicart', JSON.stringify(cart));
+  }
+
+  updateProduct(products) {
+    localStorage.setItem('reactminishop', JSON.stringify(products));
+    this.setState({ products });
+  }
+
+  decreaseStock(val) {
+    var products = JSON.parse(localStorage.getItem('reactminishop'));
+    let theProduct = _.find(products, (prod) => prod.id === val.id);
+    let allStock = theProduct.stocks;
+    let findColor = _.find(allStock, (stock) => stock.color === val.color);
+    let indexOfColor = allStock.indexOf(findColor);
+    allStock[indexOfColor].stock = findColor.stock - 1;
+    this.updateProduct(products);
   }
 
   render() {
@@ -74,7 +118,7 @@ class ListProducts extends React.Component {
       return (
         <div className="container-mini">
           {products.filter(prod => prod.name.match(new RegExp('('+productName+')','ig')))
-            .map(product => <ProductDetail key={product.id} product={product} onLike={this.onLikeClick} deleteComment={this.deleteComment} postComment={this.postComment}/>)}
+            .map(product => <ProductDetail key={product.id} product={product} onLike={this.onLikeClick} deleteComment={this.deleteComment} postComment={this.postComment} addtoCart={this.addtoCart} />)}
         </div>
       );
     } else if (this.props.params && this.props.params.categoryname) {
@@ -90,7 +134,7 @@ class ListProducts extends React.Component {
       return (
         <div className='container-mini'>
           {query && <p className='result'>{`The Result of Searching Query "${query}"`}</p>}
-          {products.length > 0 ? products.map(product => <Products key={product.id} product={product} onLike={this.onLikeClick} />) :
+          {products.length > 0 ? products.map(product => <Products key={product.id} product={product} onLike={this.onLikeClick} addtoCart={this.addtoCart} />) :
             <h3 className='not-found text-center'>Sorry... We can't found them :(</h3>}
         </div>
       );

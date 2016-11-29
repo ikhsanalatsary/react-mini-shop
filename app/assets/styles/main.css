@@ -620,18 +620,21 @@ p.result {
 
 @media only screen and (max-width: 767px) {
   nav {
-    padding: 30px 0 15px;
+    padding: 0;
   }
 
   nav a {
     float: left;
-    margin-bottom: 15px;
     display: inline-block;
   }
 
   header {
     padding: 50px 0;
     min-height: 0;
+  }
+
+  .main-wrapper {
+    padding-top: 11em;
   }
 
   article {
@@ -649,11 +652,19 @@ p.result {
 
 @media only screen and (max-width: 425px) {
   .main-wrapper {
-    padding-top: 16em;
+    padding-top: 10em;
   }
 
   .search {
     width: 95%;
+  }
+
+  p.result {
+    margin: 40px 0 -15px;
+  }
+
+  a.back-to-top {
+    z-index: 1500;
   }
 }
 
@@ -680,4 +691,8 @@ footer a:hover {
 .loading {
   padding-top: 10em;
   padding-bottom: 23em;
+}
+
+.price {
+  width: 25%;
 }

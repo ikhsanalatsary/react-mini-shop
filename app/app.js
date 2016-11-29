@@ -3,8 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './config/Routes.js';
 
-if (!localStorage.getItem('reactminishop')) {
+if (!localStorage.getItem('reactminishop') && !localStorage.getItem('reactminicart')) {
   localStorage.setItem('reactminishop', JSON.stringify(require('./data/products.json')));
+  localStorage.setItem('reactminicart', JSON.stringify(require('./data/cart.json')));
 }
 
 const rootElement = document.getElementById('root');

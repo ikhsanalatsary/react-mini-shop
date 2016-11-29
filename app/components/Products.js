@@ -9,54 +9,37 @@ const PropTypes = React.PropTypes;
 class Products extends React.Component {
   constructor(props) {
     super(props);
-    this.mount = this.mount.bind(this);
-    this.unmount = this.unmount.bind(this);
+    this.showVariant = this.showVariant.bind(this);
+    this.hideVariant = this.hideVariant.bind(this);
     this.handleGetStock = this.handleGetStock.bind(this);
-    this.cart = {
-      all: [],
-      totalItem: 0,
-    };
-
     this.state = {
-      showStocks: false,
-      cart: {},
-    }
+      showStocks: false
+    };
   }
 
   handleLikeClick(val) {
     this.props.onLike(val);
   }
 
-  mount(prod) {
+  showVariant(prod) {
     this.prod = prod;
     this.setState({
       showStocks: true,
     });
   }
 
-  unmount() {
-    console.log('hehe');
+  hideVariant() {
     this.setState({
       showStocks: false,
     });
   }
 
   handleGetStock(val) {
-    console.log(val);
-    console.log(this.prod);
-    // var cart = this.cart;
-    this.cart.all.push({
-      name:this.prod.name,
-      color: val.color,
-      price: this.prod.price,
-      amount: 1
-    });
-    this.cart.totalItem = this.cart.all.reduce((acc, cart) => { return acc + cart.amount }, 0);
-    this.setState({
-      showStocks: false,
-      cart: this.cart
-    });
     // Update data stock & push stock to cart
+    this.props.addtoCart(val, this.prod);
+    this.setState({
+      showStocks: false
+    });
   }
 
   render() {
@@ -86,7 +69,7 @@ class Products extends React.Component {
             </div>
           </div>
           <div className='col-xs-5 text-right'>
-            {showStocks ? <button onClick={this.unmount} className="psr btn buy">Choose The Color</button> : <button onClick={() => this.mount(product)} className='psr btn buy'>Add To Cart</button>}
+            {showStocks ? <button onClick={this.hideVariant} className="psr btn buy">Choose The Color</button> : <button onClick={() => this.showVariant(product)} className='psr btn buy'>Add To Cart</button>}
           </div>
         </div>
       </div>
@@ -98,6 +81,7 @@ class Products extends React.Component {
 Products.propTypes = {
   product: PropTypes.object.isRequired,
   onLike: PropTypes.func.isRequired,
+  addtoCart: PropTypes.func.isRequired,
 }
 
 export default Products;
