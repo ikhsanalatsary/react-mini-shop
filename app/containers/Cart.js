@@ -2,7 +2,7 @@ import React from 'react';
 import Loading from 'react-loading-animation';
 import currency from '../helpers/currency.js';
 import total from '../helpers/total.js';
-import CartItem from './CartItem.js';
+import CartItem from '../components/CartItem.js';
 
 class Cart extends React.Component {
   constructor(props) {

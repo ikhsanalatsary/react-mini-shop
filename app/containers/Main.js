@@ -1,6 +1,6 @@
 import React from 'react';
 import ProgressBar from 'react-progress-bar-plus';
-import Menu from './Menu.js';
+import Menu from '../components/Menu.js';
 
 import 'react-progress-bar-plus/lib/progress-bar.css';
 import '../assets/styles/main.css';

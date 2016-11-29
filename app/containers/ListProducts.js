@@ -2,8 +2,8 @@ import React from 'react';
 import Loading from 'react-loading-animation';
 import _ from 'lodash';
 import { normalString } from '../helpers/slug.js';
-import Products from './Products.js';
-import ProductDetail from './ProductDetail.js';
+import Products from '../components/Products.js';
+import ProductDetail from '../components/ProductDetail.js';
 
 class ListProducts extends React.Component {
   constructor(props) {

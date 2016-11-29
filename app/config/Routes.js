@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Router, IndexRoute, hashHistory } from 'react-router';
-import Main from '../components/Main.js';
-import ListProducts from '../components/ListProducts.js';
-import Cart from '../components/Cart.js';
+import Main from '../containers/Main.js';
+import ListProducts from '../containers/ListProducts.js';
+import Cart from '../containers/Cart.js';
 
 const Routes = () => {
   return (
