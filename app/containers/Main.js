@@ -9,7 +9,8 @@ class Main extends React.Component {
   handleSearch(e) {
     e.preventDefault;
     if (e.charCode == 13) {
-      this.props.router.push('/?q=' + e.target.value);
+      let encodeUri = encodeURIComponent(e.target.value);
+      this.props.router.push('/?q=' + encodeUri);
       e.target.value = '';
     }
   }

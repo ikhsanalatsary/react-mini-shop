@@ -107,7 +107,8 @@ class ListProducts extends React.Component {
     if (isLoading) return <div className='loading'><Loading /></div>;
 
     if (query && query.length > 0) {
-      let q = query.trim().toLowerCase();
+      let decodeUri = decodeURIComponent(query);
+      let q = decodeUri.trim().toLowerCase();
       products = products.filter(
         prod => prod.name.toLowerCase().match(q)
       );
@@ -127,7 +128,7 @@ class ListProducts extends React.Component {
         <div className="container-mini">
           <p className='result'>{`The Result of Category "${categoryName}"`}</p>
           {products.filter((prod) => prod.categories[prod.categories.length - 1] === categoryName)
-            .map(product => <Products key={product.id} product={product} onLike={this.onLikeClick} />)}
+            .map(product => <Products key={product.id} product={product} onLike={this.onLikeClick} addtoCart={this.addtoCart} />)}
         </div>
       );
     } else {
