@@ -45,6 +45,8 @@ class ProductDetail extends React.Component {
         comments: [...comments, {content: comment}]
       })
       commentRefs.value = '';
+    } else {
+      commentRefs.focus();
     }
   }
 

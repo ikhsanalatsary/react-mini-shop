@@ -8,10 +8,12 @@ import '../assets/styles/main.css';
 class Main extends React.Component {
   handleSearch(e) {
     e.preventDefault;
-    if (e.charCode == 13) {
+    if (e.charCode == 13 && e.target.value.length > 0) {
       let encodeUri = encodeURIComponent(e.target.value);
       this.props.router.push('/?q=' + encodeUri);
       e.target.value = '';
+    } else {
+      e.target.focus();
     }
   }
 

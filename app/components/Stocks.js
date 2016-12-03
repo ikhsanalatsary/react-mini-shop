@@ -2,12 +2,7 @@ import React from 'react';
 const PropTypes = React.PropTypes;
 
 class Stocks extends React.Component {
-  constructor() {
-    super();
-  }
-
   onStockClick(val) {
-    // console.log(val);
     this.props.getStock(val)
   }
 
@@ -24,8 +19,8 @@ class Stocks extends React.Component {
 }
 
 Stocks.propTypes = {
-  eachStock: PropTypes.array,
-  getStock: PropTypes.func,
+  eachStock: PropTypes.array.isRequired,
+  getStock: PropTypes.func.isRequired,
 }
 
 export default Stocks;
