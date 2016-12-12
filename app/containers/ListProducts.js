@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from 'react-loading-animation';
-import _ from 'lodash';
+import { find } from 'lodash/collection';
+import { getProducts, getCart, setProducts, setCart } from '../api/localstorage.js';
 import { normalString } from '../helpers/slug.js';
 import Products from '../components/Products.js';
 import ProductDetail from '../components/ProductDetail.js';
@@ -22,14 +23,14 @@ class ListProducts extends React.Component {
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        products: JSON.parse(localStorage.getItem('reactminishop')),
+        products: getProducts(),
         isLoading: false,
       });
     }, 1000);
   }
 
   onLikeClick(val) {
-    var products = JSON.parse(localStorage.getItem('reactminishop'));
+    var products = getProducts();
     return products
       .filter(prod => prod.id === val)
       .map(prod => {
@@ -39,7 +40,7 @@ class ListProducts extends React.Component {
   }
 
   deleteComment(val, id) {
-    var products = JSON.parse(localStorage.getItem('reactminishop'));
+    var products = getProducts();
     return products
       .filter(prod => prod.id === id)
       .map(prod => {
@@ -49,7 +50,7 @@ class ListProducts extends React.Component {
   }
 
   postComment(val, id) {
-    var products = JSON.parse(localStorage.getItem('reactminishop'));
+    var products = getProducts();
     return products
       .filter(prod => prod.id === id)
       .map(prod => {
@@ -59,7 +60,7 @@ class ListProducts extends React.Component {
   }
 
   addtoCart(stock, prod) {
-    var cart = JSON.parse(localStorage.getItem('reactminicart'));
+    var cart = getCart();
     let product = {
       name: prod.name,
       color: stock.color,
@@ -68,7 +69,7 @@ class ListProducts extends React.Component {
     };
 
     let allCart = cart.all;
-    let duplicate = _.find(allCart, (item) => item.name === product.name && item.color === product.color);
+    let duplicate = find(allCart, (item) => item.name === product.name && item.color === product.color);
     if (typeof duplicate !== 'undefined') {
       let indexOfDuplicateProduct = allCart.indexOf(duplicate);
       allCart[indexOfDuplicateProduct].amount += 1;
@@ -82,19 +83,19 @@ class ListProducts extends React.Component {
   }
 
   updateCart(cart) {
-    localStorage.setItem('reactminicart', JSON.stringify(cart));
+    setCart(cart)
   }
 
   updateProduct(products) {
-    localStorage.setItem('reactminishop', JSON.stringify(products));
+    setProducts(products);
     this.setState({ products });
   }
 
   decreaseStock(val) {
-    var products = JSON.parse(localStorage.getItem('reactminishop'));
-    let theProduct = _.find(products, (prod) => prod.id === val.id);
+    var products = getProducts();
+    let theProduct = find(products, (prod) => prod.id === val.id);
     let allStock = theProduct.stocks;
-    let findColor = _.find(allStock, (stock) => stock.color === val.color);
+    let findColor = find(allStock, (stock) => stock.color === val.color);
     let indexOfColor = allStock.indexOf(findColor);
     allStock[indexOfColor].stock = findColor.stock - 1;
     this.updateProduct(products);
@@ -119,7 +120,11 @@ class ListProducts extends React.Component {
       return (
         <div className="container-mini">
           {products.filter(prod => prod.name.match(new RegExp('('+productName+')','ig')))
-            .map(product => <ProductDetail key={product.id} product={product} onLike={this.onLikeClick} deleteComment={this.deleteComment} postComment={this.postComment} addtoCart={this.addtoCart} />)}
+            .map(product => (
+              <ProductDetail key={product.id} product={product}
+                onLike={this.onLikeClick} deleteComment={this.deleteComment}
+                postComment={this.postComment} addtoCart={this.addtoCart} />
+            ))}
         </div>
       );
     } else if (this.props.params && this.props.params.categoryname) {
@@ -127,15 +132,20 @@ class ListProducts extends React.Component {
       return (
         <div className="container-mini">
           <p className='result'>{`The Result of Category "${categoryName}"`}</p>
-          {products.filter((prod) => prod.categories[prod.categories.length - 1] === categoryName)
-            .map(product => <Products key={product.id} product={product} onLike={this.onLikeClick} addtoCart={this.addtoCart} />)}
+          {products.filter(prod => prod.categories[prod.categories.length - 1] === categoryName)
+            .map(product => (
+              <Products key={product.id} product={product}
+                onLike={this.onLikeClick} addtoCart={this.addtoCart} />
+            ))}
         </div>
       );
     } else {
       return (
         <div className='container-mini'>
           {query && <p className='result'>{`The Result of Searching Query "${query}"`}</p>}
-          {products.length > 0 ? products.map(product => <Products key={product.id} product={product} onLike={this.onLikeClick} addtoCart={this.addtoCart} />) :
+          {products.length > 0 ? products.map(product => (
+            <Products key={product.id} product={product}
+              onLike={this.onLikeClick} addtoCart={this.addtoCart} />)) :
             <h3 className='not-found text-center'>Sorry... We can't found them :(</h3>}
         </div>
       );

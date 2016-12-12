@@ -2,14 +2,10 @@ import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './config/Routes.js';
+import { initStorage, removeStorage } from './api/localstorage.js';
 
-if (!localStorage.getItem('reactminishop')) {
-  localStorage.setItem('reactminishop', JSON.stringify(require('./data/products.json')));
-}
-
-if (!localStorage.getItem('reactminicart')) {
-  localStorage.setItem('reactminicart', JSON.stringify(require('./data/cart.json')));
-}
+initStorage();
+removeStorage();
 
 const rootElement = document.getElementById('root');
 
