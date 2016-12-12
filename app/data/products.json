@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Iphone 5 S",
-    "image": "product-1.jpg",
+    "image": "product-1",
     "price": 9000000,
     "stocks": [
       {
@@ -39,7 +39,7 @@
   {
     "id": 2,
     "name": "Smart Phone Apple",
-    "image": "product-2.jpg",
+    "image": "product-2",
     "price": 10500000,
     "stocks": [
       {
@@ -61,7 +61,7 @@
   {
     "id": 3,
     "name": "Flatty Phone With Earphone",
-    "image": "product-3.jpg",
+    "image": "product-3",
     "price": 7500000,
     "stocks": [
       {
@@ -87,7 +87,7 @@
   {
     "id": 4,
     "name": "Book And Pen",
-    "image": "product-4.jpg",
+    "image": "product-4",
     "price": 150000,
     "stocks": [
       {
@@ -113,7 +113,7 @@
   {
     "id": 5,
     "name": "An Ipad",
-    "image": "product-5.jpg",
+    "image": "product-5",
     "price": 10000000,
     "stocks": [
       {
@@ -142,7 +142,7 @@
   {
     "id": 6,
     "name": "Mobile IOS",
-    "image": "product-6.jpg",
+    "image": "product-6",
     "price": 13000000,
     "stocks": [
       {

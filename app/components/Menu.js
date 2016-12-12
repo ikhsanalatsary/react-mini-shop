@@ -22,7 +22,9 @@ const Menu = (props) => {
       </Navbar.Header>
       <Navbar.Form pullLeft>
         <FormGroup>
-          <FormControl className='search' type="text" placeholder="Search" onKeyPress={props.onSearch}/>
+          <FormControl className='search'
+            type="text" placeholder="Search"
+            onKeyPress={props.onSearch}/>
         </FormGroup>
       </Navbar.Form>
       <Nav pullRight>
@@ -32,9 +34,15 @@ const Menu = (props) => {
           </button>
         </NavItem>
         <NavDropdown eventKey={3} title="" id="basic-nav-dropdown">
-          <MenuItem eventKey={3.1} href='#category/phone'>Phone</MenuItem>
-          <MenuItem eventKey={3.2} href='#category/accessories'>Accessories</MenuItem>
-          <MenuItem eventKey={3.3} href='#category/pad'>Pad</MenuItem>
+          <MenuItem eventKey={3.1} href='#category/phone'>
+            Phone
+          </MenuItem>
+          <MenuItem eventKey={3.2} href='#category/accessories'>
+            Accessories
+          </MenuItem>
+          <MenuItem eventKey={3.3} href='#category/pad'>
+            Pad
+          </MenuItem>
         </NavDropdown>
       </Nav>
     </Navbar>

@@ -41,11 +41,14 @@ class Main extends React.Component {
         <div className='main-wrapper'>
           {this.props.children}
         </div>
-        <a onClick={this.scrolltoTop.bind(this, 1000)} className="back-to-top"><i className="ion-chevron-up"></i></a>
+        <a onClick={this.scrolltoTop.bind(this, 1000)} className="back-to-top">
+          <i className="ion-chevron-up"></i>
+        </a>
         <footer>
           <div className="container-mini">
             <p className="copyright">
-              Copyright (c) By <a href="https://github.com/ikhsanalatsary">IkhsanNetwork</a>
+              Copyright (c) By <a href="https://github.com/ikhsanalatsary">
+                IkhsanNetwork</a>
             </p>
           </div>
         </footer>

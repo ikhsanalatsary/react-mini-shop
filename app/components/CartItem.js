@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import currency from '../helpers/currency.js';
-const PropTypes = React.PropTypes;
 
 const CartItem = ({ item, index }) => {
   return (
