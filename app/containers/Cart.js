@@ -32,7 +32,7 @@ class Cart extends React.Component {
       all: [],
       totalItem: 0
     };
-    getCart(cart);
+    setCart(cart);
 
     this.setState({
       allcart: [],
