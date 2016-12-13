@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCart, setCart } from '../api/localstorage.js';
 import Loading from 'react-loading-animation';
 import currency from '../helpers/currency.js';
 import total from '../helpers/total.js';
@@ -16,7 +17,7 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    var cart = JSON.parse(localStorage.getItem('reactminicart'));
+    var cart = getCart();
     setTimeout(() => {
       this.setState({
         allcart: cart.all,
@@ -27,7 +28,12 @@ class Cart extends React.Component {
   }
 
   checkout() {
-    localStorage.setItem('reactminicart', JSON.stringify(require('../data/cart.json')));
+    let cart = {
+      all: [],
+      totalItem: 0
+    };
+    getCart(cart);
+
     this.setState({
       allcart: [],
       totalItem: 0,
@@ -54,7 +60,9 @@ class Cart extends React.Component {
                         <th className="text-right">Price</th>
                         <th className="text-right">Total</th>
                       </tr>
-                      {allcart.map((item, index) => <CartItem key={index} item={item} index={index}/>)}
+                      {allcart.map((item, index) => (
+                        <CartItem key={index} item={item} index={index}/>
+                      ))}
                       <tr>
                         <th colSpan="2">Total</th>
                         <th className="text-center">{totalItem}</th>

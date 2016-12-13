@@ -146,7 +146,7 @@ class ListProducts extends React.Component {
           {products.length > 0 ? products.map(product => (
             <Products key={product.id} product={product}
               onLike={this.onLikeClick} addtoCart={this.addtoCart} />)) :
-            <h3 className='not-found text-center'>Sorry... We can't found them :(</h3>}
+            <h3 className='not-found text-center'>Sorry... We can not found them :(</h3>}
         </div>
       );
     }
