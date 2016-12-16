@@ -30,7 +30,7 @@ class ListProducts extends React.Component {
   }
 
   onLikeClick(val) {
-    var products = getProducts();
+    var products = this.state.products
     return products
       .filter(prod => prod.id === val)
       .map(prod => {
@@ -40,7 +40,7 @@ class ListProducts extends React.Component {
   }
 
   deleteComment(val, id) {
-    var products = getProducts();
+    var products = this.state.products
     return products
       .filter(prod => prod.id === id)
       .map(prod => {
@@ -50,7 +50,7 @@ class ListProducts extends React.Component {
   }
 
   postComment(val, id) {
-    var products = getProducts();
+    var products = this.state.products
     return products
       .filter(prod => prod.id === id)
       .map(prod => {
@@ -92,7 +92,7 @@ class ListProducts extends React.Component {
   }
 
   decreaseStock(val) {
-    var products = getProducts();
+    var products = this.state.products
     let theProduct = find(products, (prod) => prod.id === val.id);
     let allStock = theProduct.stocks;
     let findColor = find(allStock, (stock) => stock.color === val.color);
