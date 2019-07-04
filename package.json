@@ -7,7 +7,9 @@
     "build": "rimraf dist && webpack --bail --progress --profile --colors",
     "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --bail --progress --profile --colors"
+    "webpack": "webpack --bail --progress --profile --colors",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "react",
@@ -27,7 +29,8 @@
     "react-loading-animation": "^1.1.0",
     "react-progress-bar-plus": "^1.2.0",
     "react-progressive-image": "^0.1.2",
-    "react-router": "^3.0.0"
+    "react-router": "^3.0.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
@@ -53,5 +56,6 @@
   "bugs": {
     "url": "https://github.com/ikhsanalatsary/react-mini-shop/issues"
   },
-  "homepage": "https://github.com/ikhsanalatsary/react-mini-shop#readme"
+  "homepage": "https://github.com/ikhsanalatsary/react-mini-shop#readme",
+  "snyk": true
 }
