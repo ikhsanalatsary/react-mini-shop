@@ -22,8 +22,8 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.2",
-    "react": "^15.4.0",
-    "react-dom": "^15.4.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "react-loading-animation": "^1.1.0",
     "react-progress-bar-plus": "^1.2.0",
     "react-progressive-image": "^0.1.2",
